@@ -7,6 +7,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.Scanner;
 
 public class AddressBookManager implements AddressBookManagerInterface {
@@ -17,11 +19,11 @@ public class AddressBookManager implements AddressBookManagerInterface {
 	public FileWriter fileWriter;
 	public BufferedWriter bw;
 	public static File file;
-	public String regexphone="[0-9]{10}";
+	public String regexphone = "[0-9]{10}";
 	public static String path = "E:\\Pradip\\AddressBookUsingOops\\csv\\";
 	public static Scanner sc = new Scanner(System.in);
 	public ArrayList<Person> personarraylist12 = new ArrayList<Person>(100);
-	public HashMap<String,ArrayList<Person>> personarraylist1o = new HashMap<>(100);
+	public HashMap<String, ArrayList<Person>> personarraylist1o = new HashMap<>(100);
 
 	@Override
 	public File newaddressbook() throws IOException {
@@ -50,41 +52,78 @@ public class AddressBookManager implements AddressBookManagerInterface {
 		fileWriter.close();
 		return file;
 	}
+
 	@Override
 	public HashMap<String, ArrayList<Person>> openaddressbook()
 			throws ReflectiveOperationException, RuntimeException, IOException {
-		// TODO Auto-generated method stub
-		return null;
+		AddressBook AddressBook = new AddressBook();
+		fileuse = AddressBook.acess();
+		if (fileuse != null) {
+			fileuse = fileuse;
+			System.out.println("Please Enter Your Choice \n");
+			System.out.println("1) Add Person \n" + "2) Edit Person \n" + "3) Delete Person \n" + "4) Search Person \n"
+					+ "5) Sort ByZip \n" + "6) Sort ByName \n" + "7) Display");
+			int ch2 = sc.nextInt();
+			switch (ch2) {
+			case 1:
+				AddressBook.addperson(fileuse);
+				break;
+			case 2:
+				AddressBook.editperson(fileuse);
+				break;
+			case 3:
+				AddressBook.deleteperson(fileuse);
+				break;
+			case 4:
+				AddressBook.searchperson(fileuse);
+				break;
+			case 5:
+				AddressBook.sortbyzipperson(fileuse);
+				break;
+			case 6:
+				AddressBook.sortbynameperson(fileuse);
+				break;
+			case 7:
+				AddressBook.Display(fileuse);
+				break;
+			default:
+				System.out.println("enter correct choice");
+			}
+			return personarraylist1o;
+		}
+
+		return personarraylist1o;
+
 	}
 
 	@Override
 	public void saveaddressbook(String key, ArrayList<Person> personarraylist13) throws IOException {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void saveasaddressbook() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void closeaddressbook(FileWriter fwriter) throws IOException {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void quit() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void showAddressBook() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }
