@@ -58,7 +58,50 @@ public class AddressBook implements AddressBookInterface {
 
 	@Override
 	public String editperson(String fileuse) throws FileNotFoundException, IOException {
-		// TODO Auto-generated method stub
+		System.out.println("Enter number for edit person data\n");
+		String lineToFind = sc.next();
+		File inFile = new File((path + fileuse + ".csv"));
+		File tempFile = new File(path + fileuse + ".tmp");
+		BufferedReader br = new BufferedReader(new FileReader(inFile));
+		bw = new BufferedWriter(new FileWriter(tempFile));
+		String line = null;
+		while ((line = br.readLine()) != null) {
+			if (line.trim().contains(lineToFind)) {
+				System.out.println("Data found for given number\n" + line);
+				String[] persondrtails = line.split(",");
+				String firstname = persondrtails[0];
+				String lastname = persondrtails[1];
+				System.out.println("enter the city");
+				String c = sc.next();
+				System.out.println("enter the State");
+				String s = sc.next();
+				System.out.println("enter the Zipcode");
+				int z = sc.nextInt();
+				String phonenumber = persondrtails[5];
+				bw.write(firstname);
+				bw.write("," + lastname);
+				bw.write("," + c);
+				bw.write("," + s);
+				bw.write("," + z);
+				bw.write("," + phonenumber);
+				bw.newLine();
+				flag++;
+			} else {
+				bw.write(line);
+				bw.newLine();
+			}
+
+		}
+		bw.close();
+		br.close();
+		inFile.delete();
+		tempFile.renameTo(inFile);
+		if (flag == 0) {
+			System.out.println("Data not found in AddressBook :" + fileuse);
+		} else {
+			System.out.println("Data Modified Successfully..");
+		}
+
 		return null;
 	}
 
@@ -89,7 +132,6 @@ public class AddressBook implements AddressBookInterface {
 		return null;
 	}
 
-
 	@Override
 	public String searchperson(String fileuse)
 			throws ReflectiveOperationException, RuntimeException, FileNotFoundException, IOException {
@@ -107,8 +149,8 @@ public class AddressBook implements AddressBookInterface {
 				System.out.println("Data found: \n" + str);
 			System.out.println("-------------------------------");
 		}
-			System.out.println("wrong Number not data found try another way ");
-	
+		System.out.println("wrong Number not data found try another way ");
+
 		fr.close();
 		br.close();
 		return null;
