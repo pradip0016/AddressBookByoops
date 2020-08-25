@@ -108,7 +108,7 @@ public class AddressBookManager implements AddressBookManagerInterface {
 		File f = new File(path);
 		String[] s = f.list();
 		for (String s1 : s) {
-		System.out.println(s1);
+			System.out.println(s1);
 		}
 		System.out.println("Please enter name which book want to rename");
 		String filename = sc.next();
@@ -117,9 +117,8 @@ public class AddressBookManager implements AddressBookManagerInterface {
 		File oldFile = new File((path + filename + ".txt"));
 		File newFile = new File(path + newname + ".txt");
 		if (oldFile.renameTo(newFile)) {
-		System.out.println("file renamed and saved");
-		} else
-		{
+			System.out.println("file renamed and saved");
+		} else {
 			System.out.println("file not saved as ");
 		}
 	}
@@ -132,20 +131,23 @@ public class AddressBookManager implements AddressBookManagerInterface {
 
 	@Override
 	public void closeaddressbook(FileWriter fwriter) throws IOException {
-		// TODO Auto-generated method stub
-
+		fileWriter.close();
+		System.out.println("AddressBook Closed");
 	}
 
 	@Override
 	public void quit() {
-		// TODO Auto-generated method stub
-
+		System.exit(0);
 	}
 
 	@Override
 	public void showAddressBook() {
-		// TODO Auto-generated method stub
-
+		System.out.println("AddressBook Present in System \n");
+		File f = new File(path);
+		String[] s = f.list();
+		for (String s1 : s) {
+			System.out.println(s1);
+		}
+		System.out.println("======================");
 	}
-
 }
