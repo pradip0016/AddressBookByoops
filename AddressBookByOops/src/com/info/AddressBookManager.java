@@ -66,7 +66,13 @@ public class AddressBookManager implements AddressBookManagerInterface {
 			int ch2 = sc.nextInt();
 			switch (ch2) {
 			case 1:
-				AddressBook.addperson(fileuse);
+				personarraylist1o = AddressBook.addperson(fileuse);
+				System.out.println("Please save Below data In addressBook by click on saveaddressBook 3");
+				Iterator it = personarraylist1o.entrySet().iterator();
+				while (it.hasNext()) {
+					Map.Entry pair = (Map.Entry) it.next();
+					System.out.println(pair.getKey() + " = " + pair.getValue());
+				}
 				break;
 			case 2:
 				AddressBook.editperson(fileuse);
@@ -98,8 +104,24 @@ public class AddressBookManager implements AddressBookManagerInterface {
 
 	@Override
 	public void saveaddressbook(String key, ArrayList<Person> personarraylist13) throws IOException {
-		// TODO Auto-generated method stub
-
+		System.out.println("AddressBook Present in System \n");
+		File f = new File(path);
+		String[] s = f.list();
+		for (String s1 : s) {
+		System.out.println(s1);
+		}
+		System.out.println("Please enter name which book want to rename");
+		String filename = sc.next();
+		System.out.println("please enter new name of book");
+		String newname = sc.next();
+		File oldFile = new File((path + filename + ".txt"));
+		File newFile = new File(path + newname + ".txt");
+		if (oldFile.renameTo(newFile)) {
+		System.out.println("file renamed and saved");
+		} else
+		{
+			System.out.println("file not saved as ");
+		}
 	}
 
 	@Override

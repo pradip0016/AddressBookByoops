@@ -4,7 +4,14 @@ import java.io.*;
 import java.util.*;
 
 public class AddressBookoops {
-	public static Scanner sc = new Scanner(System.in);
+	static File ob;
+	static File file;
+	static FileWriter fwriter;
+	public FileReader fr;
+	public static String key;
+	static Scanner sc = new Scanner(System.in);
+	public static ArrayList<Person> personarraylist13 = new ArrayList<Person>(100);
+	public static HashMap<String, ArrayList<Person>> personarraylist17 = new HashMap<>(100);
 
 	public static void main(String[] args) throws IOException, ReflectiveOperationException, RuntimeException {
 		while (true) {
@@ -19,11 +26,16 @@ public class AddressBookoops {
 				AddressbookManagerImplementation.newaddressbook();
 				break;
 			case 2:
-				AddressbookManagerImplementation.openaddressbook();
-
+				personarraylist17 = AddressbookManagerImplementation.openaddressbook();
+				Iterator it = personarraylist17.entrySet().iterator();
+				while (it.hasNext()) {
+				Map.Entry pair = (Map.Entry) it.next();
+				key=(String) pair.getKey();
+				personarraylist13=(ArrayList<Person>) pair.getValue();
+				}
 				break;
 			case 3:
-				// AddressbookManagerImplementation.saveaddressbook();
+				AddressbookManagerImplementation.saveaddressbook(key,personarraylist13);
 				break;
 			case 4:
 				AddressbookManagerImplementation.saveasaddressbook();
