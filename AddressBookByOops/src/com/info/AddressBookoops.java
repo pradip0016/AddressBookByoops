@@ -41,7 +41,7 @@ public class AddressBookoops {
 				AddressbookManagerImplementation.saveasaddressbook();
 				break;
 			case 5:
-				// AddressbookManagerImplementation.closeaddressbook();
+				AddressbookManagerImplementation.closeaddressbook(fwriter);
 				break;
 			case 6:
 				AddressbookManagerImplementation.quit();

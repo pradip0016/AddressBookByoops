@@ -104,6 +104,18 @@ public class AddressBookManager implements AddressBookManagerInterface {
 
 	@Override
 	public void saveaddressbook(String key, ArrayList<Person> personarraylist13) throws IOException {
+		fileWriter = new FileWriter(path+key+".csv", true);
+		bw = new BufferedWriter(fileWriter);
+		for (int J = 0; J < personarraylist13.size(); J++) {
+			bw.write(personarraylist13.get(J).toString() + "\n");
+		}
+		bw.close();
+		fileWriter.close();
+	System.out.println("Data Saved in AddressBook :"+key+".csv");
+	}
+
+	@Override
+	public void saveasaddressbook() {
 		System.out.println("AddressBook Present in System \n");
 		File f = new File(path);
 		String[] s = f.list();
@@ -114,18 +126,17 @@ public class AddressBookManager implements AddressBookManagerInterface {
 		String filename = sc.next();
 		System.out.println("please enter new name of book");
 		String newname = sc.next();
-		File oldFile = new File((path + filename + ".txt"));
-		File newFile = new File(path + newname + ".txt");
-		if (oldFile.renameTo(newFile)) {
+		File oldFile = new File((path + filename + ".csv"));
+		File newFile = new File(path + newname + ".csv");
+		boolean b = oldFile.renameTo(newFile);
+		if (b==true) {
 			System.out.println("file renamed and saved");
-		} else {
-			System.out.println("file not saved as ");
-		}
-	}
+		} else
 
-	@Override
-	public void saveasaddressbook() {
-		// TODO Auto-generated method stub
+		{
+			System.out.println("file not saved as ");
+
+		}
 
 	}
 
