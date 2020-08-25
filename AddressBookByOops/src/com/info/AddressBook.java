@@ -64,9 +64,31 @@ public class AddressBook implements AddressBookInterface {
 
 	@Override
 	public String deleteperson(String fileuse) throws IOException {
-		// TODO Auto-generated method stub
+		System.out.println("Enter NaNumber for Delete");
+		String lineToRemove = sc.next();
+		File inFile = new File((path + fileuse + ".csv"));
+		File tempFile = new File(path + fileuse + ".tmp");
+		BufferedReader br = new BufferedReader(new FileReader(inFile));
+		PrintWriter pw = new PrintWriter(new FileWriter(tempFile));
+
+		String line = null;
+		while ((line = br.readLine()) != null) {
+			if (!line.trim().contains(lineToRemove)) {
+				pw.println(line);
+				pw.flush();
+			}
+		}
+		pw.close();
+		br.close();
+
+		inFile.delete();
+		System.out.println("Data deleted From AddressBook");
+		tempFile.renameTo(inFile);
+		System.out.println(" ");
+
 		return null;
 	}
+
 
 	@Override
 	public String searchperson(String fileuse)
