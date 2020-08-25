@@ -45,11 +45,12 @@ public class AddressBook implements AddressBookInterface {
 			phonenumber = sc.next();
 			boolean flag1 = phonenumber.matches(regexphone);
 			while (flag1 == false) {
-			System.out.println("Enter Phone Number with 10 digit between 0-9 :");
-			phonenumber = sc.next();
-			flag1 = phonenumber.matches(regexphone);
+				System.out.println("Enter Phone Number with 10 digit between 0-9 :");
+				phonenumber = sc.next();
+				flag1 = phonenumber.matches(regexphone);
 			}
-			personarraylist1.add(new Person(firstname + ",", lastname + ",", city + ",", state + ",", zipcode, "," + phonenumber));
+			personarraylist1.add(
+					new Person(firstname + ",", lastname + ",", city + ",", state + ",", zipcode, "," + phonenumber));
 			personarraylist11.put(fileuse, personarraylist1);
 		}
 		return personarraylist11;
@@ -88,14 +89,36 @@ public class AddressBook implements AddressBookInterface {
 
 	@Override
 	public String Display(String fileuse) throws IOException {
-		// TODO Auto-generated method stub
+		System.out.println("Data Present in System :");
+		Scanner scanner = new Scanner(new File(path + fileuse + ".csv"));
+		while (scanner.hasNextLine()) {
+			String line = scanner.nextLine();
+			System.out.println(line);
+		}
+		System.out.println(" \n\n");
+		file.exists();
+		scanner.close();
+
 		return null;
 	}
 
 	@Override
 	public String acess() throws FileNotFoundException, IOException {
-		// TODO Auto-generated method stub
-		return null;
+		System.out.println("AddressBook Present in System \n");
+		File f = new File(path);
+		String[] s = f.list();
+		for (String s1 : s) {
+			System.out.println(s1);
+		}
+		System.out.println("======================");
+		System.out.println("In which AddressBook You want to Perform Operation\n");
+		fileuse = sc.next();
+		file = new File(path + fileuse + ".csv");
+		if (file.isFile()) {
+			return fileuse;
+		} else
+
+			return null;
 	}
 
 }
