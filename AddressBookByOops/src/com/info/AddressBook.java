@@ -71,7 +71,24 @@ public class AddressBook implements AddressBookInterface {
 	@Override
 	public String searchperson(String fileuse)
 			throws ReflectiveOperationException, RuntimeException, FileNotFoundException, IOException {
-		// TODO Auto-generated method stub
+		File input = new File((path + fileuse + ".csv"));
+		FileReader fr = null;
+		Scanner ob = new Scanner(System.in);
+		String search, str;
+		System.out.println("Please enter number for search :");
+		search = ob.nextLine();
+		fr = new FileReader(input);
+		br = new BufferedReader(fr);
+		while ((str = br.readLine()) != null) {
+			if (str.contains(search))
+
+				System.out.println("Data found: \n" + str);
+			System.out.println("-------------------------------");
+		}
+			System.out.println("wrong Number not data found try another way ");
+	
+		fr.close();
+		br.close();
 		return null;
 	}
 
