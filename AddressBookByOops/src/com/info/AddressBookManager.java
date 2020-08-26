@@ -115,26 +115,24 @@ public class AddressBookManager implements AddressBookManagerInterface {
 		bw = new BufferedWriter(fileWriter);
 		for (int J = 0; J < personarraylist13.size(); J++) {
 			num = personarraylist13.get(J).getPhonenumber().trim();
-			System.out.println("checking with number "+num+" any data present or not");
+			System.out.println("checking with number " + num + " any data present or not");
 			System.out.println("---------");
 			System.out.println("------------");
 			File input = new File((path + key + ".csv"));
 			fr = new FileReader(input);
 			br = new BufferedReader(fr);
 			while ((str = br.readLine()) != null) {
-				if (str.contains(num))
-				{
+				if (str.contains(num)) {
 					flag++;
 					find = str;
 				}
-				
 			}
 			br.close();
 			if (flag == 0) {
 				bw.write(personarraylist13.get(J).toString() + "\n");
-				System.out.println("Data not present with "+num+" And Data Saved in AddressBook :" + key + ".csv");
+				System.out.println("Data not present with " + num + " And Data Saved in AddressBook :" + key + ".csv");
 			} else {
-				System.out.println("already Data present with same Number with :" + find);
+				System.out.println("Already Data present with same Number so try with different one -->" + find);
 			}
 
 		}
