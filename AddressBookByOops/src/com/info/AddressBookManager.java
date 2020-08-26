@@ -1,5 +1,6 @@
 package com.info;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
@@ -16,13 +17,19 @@ public class AddressBookManager implements AddressBookManagerInterface {
 	public String fileuse;
 	public String option;
 	public FileReader fr;
+	public String num;
 	public FileWriter fileWriter;
 	public BufferedWriter bw;
+	public BufferedReader br;
+	public String str;
+	public String find;
+	int flag = 0;
 	public static File file;
 	public String regexphone = "[0-9]{10}";
 	public static String path = "E:\\Pradip\\AddressBookUsingOops\\csv\\";
 	public static Scanner sc = new Scanner(System.in);
 	public ArrayList<Person> personarraylist12 = new ArrayList<Person>(100);
+	public ArrayList<Person> personarraylistreal = new ArrayList<Person>(100);
 	public HashMap<String, ArrayList<Person>> personarraylist1o = new HashMap<>(100);
 
 	@Override
@@ -104,14 +111,35 @@ public class AddressBookManager implements AddressBookManagerInterface {
 
 	@Override
 	public void saveaddressbook(String key, ArrayList<Person> personarraylist13) throws IOException {
-		fileWriter = new FileWriter(path+key+".csv", true);
+		fileWriter = new FileWriter(path + key + ".csv", true);
 		bw = new BufferedWriter(fileWriter);
 		for (int J = 0; J < personarraylist13.size(); J++) {
-			bw.write(personarraylist13.get(J).toString() + "\n");
+			num = personarraylist13.get(J).getPhonenumber().trim();
+			System.out.println("checking with number "+num+" any data present or not");
+			System.out.println("---------");
+			System.out.println("------------");
+			File input = new File((path + key + ".csv"));
+			fr = new FileReader(input);
+			br = new BufferedReader(fr);
+			while ((str = br.readLine()) != null) {
+				if (str.contains(num))
+				{
+					flag++;
+					find = str;
+				}
+				
+			}
+			br.close();
+			if (flag == 0) {
+				bw.write(personarraylist13.get(J).toString() + "\n");
+				System.out.println("Data not present with "+num+" And Data Saved in AddressBook :" + key + ".csv");
+			} else {
+				System.out.println("already Data present with same Number with :" + find);
+			}
+
 		}
 		bw.close();
 		fileWriter.close();
-	System.out.println("Data Saved in AddressBook :"+key+".csv");
 	}
 
 	@Override
@@ -129,7 +157,7 @@ public class AddressBookManager implements AddressBookManagerInterface {
 		File oldFile = new File((path + filename + ".csv"));
 		File newFile = new File(path + newname + ".csv");
 		boolean b = oldFile.renameTo(newFile);
-		if (b==true) {
+		if (b == true) {
 			System.out.println("file renamed and saved");
 		} else
 
